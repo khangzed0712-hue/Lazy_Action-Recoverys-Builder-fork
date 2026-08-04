@@ -1,4 +1,4 @@
-Name: OrangeFox [OFRP] Patch Private X
+name: OrangeFox [OFRP] Patch Private X
 
 on:
   workflow_dispatch:
