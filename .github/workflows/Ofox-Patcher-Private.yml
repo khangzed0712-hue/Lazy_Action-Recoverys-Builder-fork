@@ -1,4 +1,4 @@
-name: OrangeFox [OFRP] Patch Private X
+Name: OrangeFox [OFRP] Patch Private X
 
 on:
   workflow_dispatch:
@@ -6,9 +6,11 @@ on:
       MANIFEST_BRANCH:
         description: 'OrangeFox Manifest Branch'
         required: true
-        default: '12.1'
+        default: '14.1'
         type: choice
         options:
+        - 14.1
+        - 13.0
         - 12.1
         - 11.0
         - 10.0
@@ -86,7 +88,7 @@ jobs:
         git config --global user.name "lazycodebuilder"
         git config --global user.email "154446636+lazycodebuilder@users.noreply.github.com"
         git clone https://gitlab.com/OrangeFox/sync.git
-        if [ ${{ inputs.MANIFEST_BRANCH }} == '11.0' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '12.1' ]; then
+        if [ ${{ inputs.MANIFEST_BRANCH }} == '11.0' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '12.1' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '13.0' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '14.1' ]; then
             echo "Sync fox_${{ inputs.MANIFEST_BRANCH }} branch"
             echo "CHECK_LEGACY_BRANCH=false" >> $GITHUB_ENV
             cd sync
@@ -158,7 +160,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         set -e
-        if [ ${{ inputs.MANIFEST_BRANCH }} == '11.0' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '12.1' ]; then
+        if [ ${{ inputs.MANIFEST_BRANCH }} == '11.0' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '12.1' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '13.0' ] || [ ${{ inputs.MANIFEST_BRANCH }} == '14.1' ]; then
             lunch twrp_${{ env.DEVICE_NAME }}-eng && make clean && mka adbd ${{ inputs.BUILD_TARGET }}image
         else
             lunch omni_${{ env.DEVICE_NAME }}-eng && make clean && mka ${{ inputs.BUILD_TARGET }}image
